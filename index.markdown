@@ -1,32 +1,55 @@
 # lability-tutorial
 
-Hello, GitHub
+Hello, GitHub 👨‍💻
 
 This is a tutorial for working with [Lability](https://github.com/VirtualEngine/Lability/).
 
+I recently found Lability and really came to like it.
+However, unfortunately its documentation is a bit sparse.
+I am writing this tutorial to help people get started with this dope module for building Hyper-V test labs.
+I hope it's useful.
+❤
+
+This tutorial not yet complete -
+below you can find a table of contents / to do list.
+Where a chapter has been started (not necessarily completed!),
+there will be a link to the chapter;
+where a chapter has not yet been started,
+there will be a list of things to cover.
+
+**Feedback and pull requests are welcome!**
+Open issues or submit PRs [on Github](https://github.com/mrled/lability-tutorial).
+
 1. [An introduction to Lability](01-Introduction)
+
 2. [A simple configuration](02-Simple)
 
-## Work in progress / roadmap
+3.  Debugging VMs that won't come up:
+    the previous single VM lab, but with a faulty DSC configuration
+    that prevents the machine from ever presenting the logon screen.
 
-Right now, this tutorial is pretty empty.
-Ultimately, I hope to cover the following topics:
+     -  Logging in via Powershell remoting if possible
+     -  Resetting the VMs so you can log on and see what went wrong
+     -  DSC logs in Event Viewer
+     -  Lability logs in C:\Bootstrap
+     -  Deleting existing VHDs before redeploying a lab when troubleshooting
+     -  Filtering the error list
 
-1.  Simple configuration:
-    a single VM, connected to an existing external switch, and using a simple resource to install Firefox.
+4.  Expanding our simple VM example
 
-     -  Discuss the way the creds work (uses just the password, not the username)
-     -  Show how to Enter-PSSession to the VM
-     -  Discuss troubleshooting methods: WinRM to the VM, reset VM then log in...
+     -  Types of switches and what happens if the switch doesn't already exist
+     -  Lab prefixes
+     -  Custom resources (install Firefox)
+     -  DSC modules, version specifiers, and what happens if DSC modules are not defined in the config data
 
-2.  NAT network configuration:
+5.  NAT network configuration:
     two VMs, one with two NICs acting as a NAT gateway, and one with just one NIC behind the NAT.
 
      -  Discuss problems related to two NICs and nondeterministic switch assignment order
      -  Discuss double-NAT
-     -  Show how to connect to the VMs via PS remoting, including getting to machines behind NAT from a session on the gateway
+     -  Show how to connect to the VMs behind NAT via PS remoting if the gateway is up
 
-3.  AD domain behind NAT network
+6.  AD domain behind NAT network
     three VMs: a domain controller, a NAT gateway, and a Windows 10 client
 
 Other items on my mind:

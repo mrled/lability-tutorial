@@ -5,8 +5,8 @@ See the code for the simple configuration at
 
 ## ConfigurationData.SIMPLE.psd1
 
-{% include_relative ./ConfigurationData.SIMPLE.psd1 %}
+{% include_relative ConfigurationData.SIMPLE.psd1 %}
 
 ## Deploy-SIMPLE.ps1
 
-{% include_relative ./Deploy-SIMPLE.psd1 %}
+{% include_relative Deploy-SIMPLE.ps1 %}

@@ -3,6 +3,7 @@
 
 # Chapter 2: A simple configuration
 
+* TOC
 {:toc}
 
 ## [ConfigurationData.SIMPLE.psd1](https://github.com/mrled/lability-tutorial/tree/master/01-Simple/ConfigurationData.SIMPLE.psd1)

@@ -5,8 +5,12 @@ See the code for the simple configuration at
 
 ## ConfigurationData.SIMPLE.psd1
 
+{% highlight powershell %}
 {% include_relative ConfigurationData.SIMPLE.psd1 %}
+{% endhighlight %}
 
 ## Deploy-SIMPLE.ps1
 
+{% highlight powershell %}
 {% include_relative Deploy-SIMPLE.ps1 %}
+{% endhighlight %}

@@ -1,6 +1,3 @@
----
----
-
 # Chapter 2: A simple configuration
 
 * TOC

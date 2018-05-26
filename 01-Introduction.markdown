@@ -36,22 +36,28 @@ However, the module does ship with useful documentation accessible via Powershel
 
 First, import the Lability module so we can use it
 
-    <# Powershell #> Import-Module -Name Lability
+{% highlight powershell %}
+<# PS #> Import-Module -Name Lability
+{% endhighlight %}
 
 See the list of available commands like this:
 
-    <# Powershell #> Get-Command -Module Lability
+{% highlight powershell %}
+<# PS #> Get-Command -Module Lability
 
-    CommandType     Name                                               Version    Source
-    -----------     ----                                               -------    ------
-    Function        Checkpoint-Lab                                     0.14.0     Lability
-    Function        Clear-LabModuleCache                               0.14.0     Lability
-    <... snip ...>
+CommandType     Name                                               Version    Source
+-----------     ----                                               -------    ------
+Function        Checkpoint-Lab                                     0.14.0     Lability
+Function        Clear-LabModuleCache                               0.14.0     Lability
+<... snip ...>
+{% endhighlight %}
 
 As with all Powershell commands,
 get the full help for a given command with a command like this:
 
-    <# Powershell #> Get-Help -Name Checkpoint-Lab -Full | more
+{% highlight powershell %}
+<# PS #> Get-Help -Name Checkpoint-Lab -Full | more
+{% endhighlight %}
 
 Lability also ships with some built-in help files for concepts that aren't captured in the command help.
 You can see a list of the files in the dev version [on GitHub](https://github.com/VirtualEngine/Lability/tree/dev/en-US).

@@ -1,5 +1,7 @@
 # Chapter 1: An introduction to Lability
 
+{:toc}
+
 [Lability](https://github.com/VirtualEngine/Lability) is, according to its repository, a "test lab deployment and configuration module".
 It works with Powershell DSC and Hyper-V (and as such requires a Windows lab machine).
 With Lability, you can define labs using standard Powershell DSC configuration data and scripts,

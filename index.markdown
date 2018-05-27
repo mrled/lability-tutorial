@@ -1,4 +1,5 @@
 # lability-tutorial
+{:.no_toc}
 
 Hello, GitHub 👨‍💻
 
@@ -10,6 +11,17 @@ I am writing this tutorial to help people get started with this dope module for 
 I hope it's useful.
 ❤
 
+**Feedback and pull requests are welcome!**
+Open issues or submit PRs [on Github](https://github.com/mrled/lability-tutorial).
+
+## On this page
+{:.no_toc}
+
+* TOC
+{:toc}
+
+## Tutorial status
+
 This tutorial not yet complete -
 below you can find a table of contents / to do list.
 Where a chapter has been started (not necessarily completed!),
@@ -17,8 +29,21 @@ there will be a link to the chapter;
 where a chapter has not yet been started,
 there will be a list of things to cover.
 
-**Feedback and pull requests are welcome!**
-Open issues or submit PRs [on Github](https://github.com/mrled/lability-tutorial).
+## Target audience
+
+Who should read this tutorial?
+
+ -  I assume a mid-level Powershell background.
+    You should be comfortable reading and writing Powershell scripts.
+ -  I assume at least a passing familiarity with Powershell DSC.
+    You may not have written a DSC configuration before,
+    but you should understand at a high level what DSC is for
+    and be willing to research concepts you don't understand.
+ -  You should be able to use the Hyper-V GUI tools on a Windows client OS (such as Windows 10 Pro).
+    We don't do anything too complex with Hyper-V in this tutorial,
+    but you should understand basic concepts like VMs, VHDs, VSwitches, and so forth.
+
+## Tutorial chapters
 
 1. [An introduction to Lability](01-Introduction)
 
@@ -37,6 +62,8 @@ Open issues or submit PRs [on Github](https://github.com/mrled/lability-tutorial
 
 4.  Expanding our simple VM example
 
+     -  Add an additional node
+     -  Explain `NodeName = '*'`
      -  Types of switches and what happens if the switch doesn't already exist
      -  Lab prefixes
      -  Custom resources (install Firefox)
@@ -49,8 +76,16 @@ Open issues or submit PRs [on Github](https://github.com/mrled/lability-tutorial
      -  Discuss double-NAT
      -  Show how to connect to the VMs behind NAT via PS remoting if the gateway is up
 
-6.  AD domain behind NAT network
-    three VMs: a domain controller, a NAT gateway, and a Windows 10 client
+6.  AD domain behind NAT network:
+    three VMs, one domain controller, one NAT gateway, and one Windows 10 client
+
+     -  Discuss ordering of resources in the config file to minimize errors
+     -  Show example of Windows event forwarding
+
+7.  Back matter (?)
+
+     -  Powershell DSC concepts
+     -  Lability concepts
 
 Other items on my mind:
 

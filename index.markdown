@@ -45,11 +45,11 @@ Who should read this tutorial?
 
 ## Tutorial chapters
 
-1. [An introduction to Lability](01-Introduction)
+1.  [An introduction to Lability](01-Introduction)
 
-2. [A simple configuration](02-Simple)
+2.  [A simple configuration](02-Simple)
 
-3.  Debugging VMs that won't come up:
+3.  [Debugging VMs that won't come up](03-Debugging):
     the previous single VM lab, but with a faulty DSC configuration
     that prevents the machine from ever presenting the logon screen.
 

@@ -8,5 +8,5 @@ $configData = "$PSScriptRoot\ConfigurationData.SIMPLE.psd1"
 
 $adminPassword = Read-Host -AsSecureString -Prompt "Admin password"
 $adminCred = New-Object -TypeName PSCredential -ArgumentList @("IgnoredUsername", $adminPassword)
-Start-LabConfiguration -ConfigurationData $configData -Verbose -Credential $adminCred -IgnorePendingReboot
+Start-LabConfiguration -ConfigurationData $configData -Verbose -Credential $adminCred
 Start-Lab -ConfigurationData $configData -Verbose

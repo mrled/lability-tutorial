@@ -208,7 +208,7 @@ for _every_ VM in your lab.
 {% highlight powershell %}
 $adminPassword = Read-Host -AsSecureString -Prompt "Admin password"
 $adminCred = New-Object -TypeName PSCredential -ArgumentList @("IgnoredUsername", $adminPassword)
-Start-LabConfiguration -ConfigurationData $configData -Verbose -Credential $adminCred -IgnorePendingReboot
+Start-LabConfiguration -ConfigurationData $configData -Verbose -Credential $adminCred
 Start-Lab -ConfigurationData $configData -Verbose
 {% endhighlight %}
 
@@ -231,6 +231,20 @@ it may take quite some time to download the ISOs and install Windows.
 However, after this has been done once, subsequent runs are much faster -
 typically this step takes less than a minute on my machine.
 
+Note that you may want to pass `-IgnorePendingReboot` to `Start-LabConfiguration`.
+`Start-LabConfiguration` uses a DSC module behind the scenes called `xPendingReboot`
+to determine whether you need to reboot your system before it can deploy.
+For issues such as pending Windows Update reboots,
+this is pretty important and you should reboot before continuing.
+However, it also checks for pending file renames.
+These can happen if something has attempted to rename or delete a locked file.
+Windows can schedule the rename/delete to happen at next boot,
+and `xPendingReboot` reads that schedule and instructs you to reboot if it sees any entries.
+These are so much more common than other (legitimate) reasons to reboot
+that I have taken to always passing `-IgnorePendingReboot`.
+If skipping the reboot for pending file renames can cause problems,
+I haven't seen any so far.
+
 Finally, the `Start-Lab` command starts the VMs in Hyper-V.
 
 ### Wait for the Hyper-V VMs to come up
@@ -248,6 +262,15 @@ However, for more complex configurations that involve multiple VMs communicating
 such as creating a domain and joining other VMs to it,
 it might take a long time for the DSC configuration to apply completely,
 and therefore the VMs might not be available for a long time.
+
+## Logging on to the VMs
+
+Once all of the VMs are showing the logon screen in Hyper-V Manager,
+you can simply double click on the VM to get to a logon screen.
+
+Unless your DSC configuration specifically added others,
+the only user on your VM will be the default local Administrator account.
+Type `Administrator` for the username and use the password you selected earlier to log on.
 
 ## Lab files
 

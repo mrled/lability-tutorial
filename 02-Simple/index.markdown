@@ -251,19 +251,19 @@ and therefore the VMs might not be available for a long time.
 
 ## Lab files
 
-### [ConfigurationData.SIMPLE.psd1](https://github.com/mrled/lability-tutorial/tree/master/01-Simple/ConfigurationData.SIMPLE.psd1)
+### [ConfigurationData.SIMPLE.psd1](https://github.com/mrled/lability-tutorial/tree/master/02-Simple/ConfigurationData.SIMPLE.psd1)
 
 {% highlight powershell %}
 {% include_relative ConfigurationData.SIMPLE.psd1 %}
 {% endhighlight %}
 
-### [Configure.SIMPLE.ps1](https://github.com/mrled/lability-tutorial/tree/master/01-Simple/Configure.SIMPLE.ps1)
+### [Configure.SIMPLE.ps1](https://github.com/mrled/lability-tutorial/tree/master/02-Simple/Configure.SIMPLE.ps1)
 
 {% highlight powershell %}
 {% include_relative Configure.SIMPLE.ps1 %}
 {% endhighlight %}
 
-### [Deploy-SIMPLE.ps1](https://github.com/mrled/lability-tutorial/tree/master/01-Simple/Deploy-SIMPLE.ps1)
+### [Deploy-SIMPLE.ps1](https://github.com/mrled/lability-tutorial/tree/master/02-Simple/Deploy-SIMPLE.ps1)
 
 {% highlight powershell %}
 {% include_relative Deploy-SIMPLE.ps1 %}

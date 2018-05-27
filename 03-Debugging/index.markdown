@@ -65,7 +65,7 @@ $Error | Where-Object -FilterScript {
 This still contains some noise,
 but cuts out dozens and dozens of errors that are probably not part of whatever problem you are having.
 
-### Using [Show-ErrorReport.ps1](https://github.com/mrled/lability-tutorial/tree/master/03-Debugging/Show-ErrorReport.ps1)
+### Using Show-ErrorReport.ps1
 
 To make this a bit more readable, I have included a `Show-ErrorReport.ps1` script below.
 This takes the records in `$Error` and makes them more easily read by humans.

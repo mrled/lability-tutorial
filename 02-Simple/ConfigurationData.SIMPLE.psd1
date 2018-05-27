@@ -9,7 +9,6 @@
             Lability_Media              = 'WIN10_x64_Enterprise_EN_Eval';
             Lability_ProcessorCount     = 1;
             Lability_StartupMemory      = 2GB;
-            Lability_Resource           = @('Firefox')
             PSDscAllowPlainTextPassword = $true;
         }
     );

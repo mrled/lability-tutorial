@@ -1,18 +1,47 @@
 # Chapter 2: A simple configuration
+{:.no_toc}
+
+In this chapter, we define and deploy a very simple Lability configuration.
+
+## On this page
+{:.no_toc}
 
 * TOC
 {:toc}
 
+## Pre-steps
+
+Before deploying this lab,
+you must have an existing Hyper-V external switch.
+
+(NOTE: For more information about Hyper-V's switch types,
+see [Hyper-V: what are the uses for different types of virtual networks?](https://blogs.technet.microsoft.com/jhoward/2008/06/17/hyper-v-what-are-the-uses-for-different-types-of-virtual-networks/))
+
+Open the `Hyper-V Manager` application,
+click on `Virtual Switch Manager...` in the right pane,
+and click the `Create Virtual Switch` button.
+Assign a name for the new VSwitch (mine is `WiFi-HyperV-VSwitch`),
+attach it to an external network that has Internet access,
+and click OK.
+
+You will see my `WiFi-HyperV-VSwitch` switch name in the configuration data below.
+If you named your switch something else,
+you should change the line in the configuration data to match the name you chose.
+
 ## Defining the configuration data
+
+### What is configuration data
 
 Configuration data should be saved in a Powershell data file.
 These files end in `.psd1` and contain a Powershell hashtable.
 In fact, the syntax is a subset of valid Powershell that can be imported safely -
 specifically, dynamic code is not run, but static code is OK.
-In practice, this means that you cannot define or call functions from a Powershell data file.
-(It is a bit like how JSON is a subset of valid JavaScript syntax.)
+In practice, this means that you cannot define functions in,
+or call them from,
+a Powershell data file.
+(Powershell configuration data is a bit like how JSON is a subset of valid JavaScript syntax.)
 
-An example data file might look like this:
+An example, generic data file might look like this:
 
 {% highlight powershell %}
 @{
@@ -29,7 +58,7 @@ An example data file might look like this:
 }
 {% endhighlight %}
 
-These data files are commonly used in Powershell DSC
+Configuration data files are commonly used in Powershell DSC
 (See Microsoft's [Using configuration data in DSC](https://docs.microsoft.com/en-us/powershell/dsc/configdata) for some examples).
 DSC configuration data expects two keys:
 
@@ -37,20 +66,55 @@ DSC configuration data expects two keys:
 2. `NonNodeData`, which contains other information that is used in the DSC configuration
 
 See [ConfigurationData.SIMPLE.psd1](#configurationdatasimplepsd1) for the example we use in this chapter.
-In our example, we see two children of the `AllNodes` key:
 
-1. A hashtable where `NodeName = '*'`, indicating that this is configuration data that applies to all nodes we wish to configure
-2. A hashtable where `NodeName = 'CLIENT1'`, indicating configuration specific to a host called `CLIENT1`
+### The `AllNodes` key
 
-Since we are only defining one client,
-we could have placed all of the configuration for `NodeName = '*'` in the `NodeName = 'CLIENT1'` hashtable.
-This example uses `NodeName = '*'` to show a common pattern we will use later,
-which allows you to set configuration values for multiple nodes at once.
+In our example, we see just one child of the `AllNodes` key:
+A hashtable where `NodeName = 'CLIENT1'`,
+indicating configuration specific to a host called `CLIENT1`.
+
+You can see that we specify the VSwitch in this section,
+as well as other settings unique to our new VM like what Windows media to install,
+how much RAM it has,
+and so forth.
+
+### The `NonNodeData` key
+
+We also see one child of the `NonNodeData` key:
+the `Lability` key, which contains data that is interpreted specially by Lability.
+That key has the `DSCResources` key under it,
+which defines any non-default resouces (discussed below) that we use in our configuration.
+
+Defining `DSCResources` is not required if you have installed the resources on your host machine,
+but it is recommended because it allows you to specify a specific resource version
+rather than simply using whatever is installed locally.
+This makes your configurations more portable,
+and protects against accidentally installing a new version of the resource that may include breaking changes.
+
+In our `DSCResources` section, we declare that we will use two external resources:
+
+1. [The `xComputerManagement` resource](https://github.com/PowerShell/ComputerManagementDsc),
+2. [The `xNetworking` resource](https://github.com/PowerShell/NetworkingDsc)
+
+Both of these resources are published by Microsoft.
+However, they are not published with Powershell DSC itself,
+and must be installed from the PSGallery.
+Fortunately, Lability handles this for us -
+by defining the resources here in this way,
+we instruct Lability to automatically download the modules from the PSGallery
+and install them on our VM's VHD before starting the VM.
+
+One further note:
+the `x` prefix is a Microsoft convention indicating an _eXperimental_ resource
+which may change its API as new versions are released.
+You may also see resources whose names are prefixed with `c`,
+which indicates a _Community_ resource.
+Resources with no name prefix ship with DSC,
+and do not require declaration in the configuration data.
 
 ### Interpretation of configuration data
 
-In pure Powershell DSC, you create configuration data like this
-and then pass it to a DSC "Configuration" stanza (discussed below).
+Powershell DSC uses configuration data like this in DSC _Configuration_ blocks (discussed below).
 DSC has a few special keys it knows about,
 such as the `PSDscAllowPlainTextPassword` key you can see in our example configuration data.
 (This key does what you might expect -
@@ -60,42 +124,50 @@ Other keys are not special to DSC, but are special to Lability.
 For instance, the `Lability_SwitchName` key determines which Hyper-V switch(es) Lability will attach to its nodes.
 If a switch with that name already exists, Lability will use it;
 if not, Lability will create an internal Hyper-V switch.
-
-For more information about Hyper-V's switch types,
-see [Hyper-V: what are the uses for different types of virtual networks?](https://blogs.technet.microsoft.com/jhoward/2008/06/17/hyper-v-what-are-the-uses-for-different-types-of-virtual-networks/)
-
 For more information about all the keys that Lability interprets specially,
 see the `about_ConfigurationData` help topic.
 
 Finally, other keys such as `InterfaceAlias` or `AddressFamily` are not treated specially at all,
 and must be used in a DSC configuration block.
+You can add any number of these keys and assign them any value you like,
+but they are not used unless your DSC configuration references them explicitly.
 DSC configuration blocks are discussed next.
 
 ## Writing a DSC configuration
 
 The DSC configuration is stored in a regular Powershell script ending in `.ps1`.
 The configuration will apply DSC _resources_ to the _nodes_ you defined in your configuration data.
-
 A DSC resource is a declaration of what the _desired state_ of the node is.
+Let's break that down.
+
+To apply a particular configuration to a node,
+it is very common to select the nodes based on the node's `Role`,
+which is defined in the configuration data.
 For instance, in our [Configure.SIMPLE.ps1](#configuresimpleps1) example configuration that we use in this chapter,
-we set the hostname for our example node with the `xComputer` resource, like so:
+we declare the configuration for our `CLIENT1` node in a block that looks like this:
 
 {% highlight powershell %}
 node $AllNodes.Where({$_.Role -in 'CLIENT'}).NodeName {
-    xComputer 'Hostname' {
-        Name = $node.NodeName;
-    }
+    ... snip ...
 }
 {% endhighlight %}
 
-This fragment applies the `xComputer` resource to all nodes in our configuration data which have a role of `CLIENT`.
-The configuration is run for each matching node -
-in our configuration data (above), we have defined only one node with the `CLIENT` role.
+That uses a Powershell expression to only apply to nodes we gave the `CLIENT` role.
+If we had defined other nodes in our configuration data that did not have this role,
+none of the configuration in that block would apply to them.
 
-The `$node` variable will be a hashtable of all the values in our configuration data for the `NodeName = '*'` hashtable,
-plus all the values for the `NodeName = 'CLIENT1'` hashtable.
-If any key is specified in both hashtables,
-the value from the more specific `NodeName = 'CLIENT1'` hashtale overrides the generic value.
+Inside of that block we have _resource delcarations_,
+which declare the desired state for the node.
+For instance, at the bottom of our `node` block,
+we can see the following:
+
+{% highlight powershell %}
+xComputer 'Hostname' {
+    Name = $node.NodeName;
+}
+{% endhighlight %}
+
+This renames the computer using the `xComputer` resource.
 
 ## Deploying a Lability DSC configuration
 
@@ -104,8 +176,10 @@ all that remains is to deploy the configuration.
 This is simple to do from Powershell.
 
 You can see the [Deploy-SIMPLE.ps1](#deploy-simpleps1) script in its entirety below.
-However, I have broken it out here into commands that can be typed directly into Powershell
-to make discussing different commands easier here.
+I typically write a short script like this to help me deploy the lab.
+However, in this section,
+I have also broken it out into commands that can be typed directly into Powershell
+to make it easier to describe what the commands are doing.
 
 ### Build the DSC MOF files:
 
@@ -119,14 +193,17 @@ $configData = "$PSScriptRoot\ConfigurationData.SIMPLE.psd1"
 
 This results in MOF files in the `$env:LabilityConfigurationPath` directory.
 (Note that Lability sets that environment variable when you import the module.)
+Lability will copy each node's MOF file to the node's VHD,
+and start Powershell DSC to apply the configuration in the compiled MOF file when the VM boots.
 
 ### Start the lab configuration
 
 Then, start the lab configuration.
 
-Note that the `-Credential` parameter to `Start-LabConfiguration` has some possibly surprising behavior -
-that cmdlet ignores the username in that credential,
-but sets the local administrator password for _every_ VM in your lab to be the password in the credential.
+Note that the `-Credential` parameter to `Start-LabConfiguration` has some surprising behavior -
+the username is ignored,
+but the password is used as the local administrator password
+for _every_ VM in your lab.
 
 {% highlight powershell %}
 $adminPassword = Read-Host -AsSecureString -Prompt "Admin password"
@@ -135,39 +212,42 @@ Start-LabConfiguration -ConfigurationData $configData -Verbose -Credential $admi
 Start-Lab -ConfigurationData $configData -Verbose
 {% endhighlight %}
 
-These commands do quite a lot:
+The `Start-LabConfiguration` command does quite a lot:
 
- -  Download any Windows trial media to `C:\Lability\ISOs` if they do not already exist there
+ -  Downloads any Windows trial media to `C:\Lability\ISOs` if they do not already exist there
     (this can take a long time!)
- -  Download any DSC resources or other necessary for the configuration to `C:\Lability\Resources`
- -  Create virtual hard disk images (VHD or VHDX files) to use as virtual disks for lab VMs
- -  Install Windows to these images offline (without having to start the VMs),
-    and save the results to `C:\Lability\MasterVirtualHardDisks`.
+ -  Downloads any DSC resources or other necessary for the configuration to `C:\Lability\Resources`
+ -  Creates virtual hard disk images (VHD or VHDX files) to use as virtual disks for lab VMs
+ -  Installs Windows to these images offline (without having to start the VMs),
+    and saves the results to `C:\Lability\MasterVirtualHardDisks`.
     This means that once you have used a lab VM with a given OS once, for any lab,
     any new lab can use the VM without having to install Windows again.
- -  Apply any customizations to copies of these master virtual disks and save them to `C:\Lability\VMVirtualHardDisks`,
-    including embedding the Powershell DSC configuration we wrote above
+ -  Applies any customizations to copies of these master virtual disks and saves them to `C:\Lability\VMVirtualHardDisks`,
+    embedding the Powershell DSC configuration we wrote above
     so that it gets automatically applied when the machine boots.
- -  Creates any Hyper-V switches that are defined in the configuration data but do not exist ahead of time
 
 The first time you run `Start-LabConfiguration` on your lab,
 it may take quite some time to download the ISOs and install Windows.
 However, after this has been done once, subsequent runs are much faster -
 typically this step takes less than a minute on my machine.
 
+Finally, the `Start-Lab` command starts the VMs in Hyper-V.
+
 ### Wait for the Hyper-V VMs to come up
 
 That said, even when the commands return, there is still some waiting to do.
-
-When we started the lab in the previous step, all of the VMs in our lab get started more or less at once.
+When the VMs in our lab get started,
 Windows needs to come up and do its first boot configuration,
 and after that the DSC configuration you wrote is applied automatically as well.
+
+_You cannot log on to a VM using the Hyper-V GUI until the DSC configuration has fully applied successfully._
 
 For a simple case like the one in this example,
 the VM might come up just a few minutes after being started.
 However, for more complex configurations that involve multiple VMs communicating,
 such as creating a domain and joining other VMs to it,
-the VMs might not be available for a very long time.
+it might take a long time for the DSC configuration to apply completely,
+and therefore the VMs might not be available for a long time.
 
 ## Lab files
 

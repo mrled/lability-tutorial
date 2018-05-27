@@ -66,29 +66,35 @@ Who should read this tutorial?
      -  Deleting existing VHDs before redeploying a lab when troubleshooting
      -  Filtering the error list
 
-4.  Expanding our simple VM example
+4.  [Expanding our simple VM example](04-SimpleExpanded):
+
+     -  Lab prefixes
+     -  Custom resources (install Firefox)
+     -  DSC modules, version specifiers,
+        and what happens if DSC modules are not defined in the config data
+        (move this from 02-Simple)
+
+5.  Simple private network
 
      -  Add an additional node
      -  Explain `NodeName = '*'`
-     -  Types of switches and what happens if the switch doesn't already exist
-     -  Lab prefixes
-     -  Custom resources (install Firefox)
-     -  DSC modules, version specifiers, and what happens if DSC modules are not defined in the config data
+     -  Create an internal network
+     -  Explain types of switches and what happens if the switch doesn't already exist
 
-5.  NAT network configuration:
+6.  NAT network configuration:
     two VMs, one with two NICs acting as a NAT gateway, and one with just one NIC behind the NAT.
 
      -  Discuss problems related to two NICs and nondeterministic switch assignment order
      -  Discuss double-NAT
      -  Show how to connect to the VMs behind NAT via PS remoting if the gateway is up
 
-6.  AD domain behind NAT network:
+7.  AD domain behind NAT network:
     three VMs, one domain controller, one NAT gateway, and one Windows 10 client
 
      -  Discuss ordering of resources in the config file to minimize errors
      -  Show example of Windows event forwarding
 
-7.  Back matter (?)
+8.  Back matter (?)
 
      -  Powershell DSC concepts
      -  Lability concepts

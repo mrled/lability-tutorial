@@ -82,35 +82,15 @@ and so forth.
 
 We also see one child of the `NonNodeData` key:
 the `Lability` key, which contains data that is interpreted specially by Lability.
+
 That key has the `DSCResources` key under it,
-which defines any non-default resouces (discussed below) that we use in our configuration.
+which defines any non-default resources (discussed below) that we use in our configuration.
+Defining `DSCResources` this way is not required under some conditions,
+but it is always recommended.
 
-Defining `DSCResources` is not required if you have installed the resources on your host machine,
-but it is recommended because it allows you to specify a specific resource version
-rather than simply using whatever is installed locally.
-This makes your configurations more portable,
-and protects against accidentally installing a new version of the resource that may include breaking changes.
-
-In our `DSCResources` section, we declare that we will use two external resources:
-
-1. [The `xComputerManagement` resource](https://github.com/PowerShell/ComputerManagementDsc),
-2. [The `xNetworking` resource](https://github.com/PowerShell/NetworkingDsc)
-
-Both of these resources are published by Microsoft.
-However, they are not published with Powershell DSC itself,
-and must be installed from the PSGallery.
-Fortunately, Lability handles this for us -
-by defining the resources here in this way,
-we instruct Lability to automatically download the modules from the PSGallery
-and install them on our VM's VHD before starting the VM.
-
-One further note:
-the `x` prefix is a Microsoft convention indicating an _eXperimental_ resource
-which may change its API as new versions are released.
-You may also see resources whose names are prefixed with `c`,
-which indicates a _Community_ resource.
-Resources with no name prefix ship with DSC,
-and do not require declaration in the configuration data.
+The `Lability` key,
+as well as its `DSCResources` subkey,
+is discussed further in Chapter 4.
 
 ### Interpretation of configuration data
 

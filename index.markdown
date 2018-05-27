@@ -45,13 +45,19 @@ Who should read this tutorial?
 
 ## Tutorial chapters
 
-1.  [An introduction to Lability](01-Introduction)
+1.  [An introduction to Lability](01-Introduction):
+    a brief intro describing Lability and its documentation.
 
-2.  [A simple configuration](02-Simple)
+2.  [A simple configuration](02-Simple):
+    a very simple lab that starts just one virtual machine.
 
-3.  [Debugging VMs that won't come up](03-Debugging):
-    the previous single VM lab, but with a faulty DSC configuration
-    that prevents the machine from ever presenting the logon screen.
+     -  Powershell DSC configuration data
+     -  Powershell DSC configurations
+     -  Lability lab creation behavior (attaching to switches, downloading media, etc)
+     -  Configuring and starting the lab
+
+3.  [Debugging labs that won't start](03-Debugging):
+    a discussion of troubleshooting strategies when things aren't working correctly.
 
      -  Logging in via Powershell remoting if possible
      -  Resetting the VMs so you can log on and see what went wrong
@@ -89,5 +95,7 @@ Who should read this tutorial?
 
 Other items on my mind:
 
-1.  In the Windows 10 Fall Creators Update (Windows 10 build 1709), Hyper-V started shipping with a default NAT network.
-    That will make configuration easier, but my work machine doesn't have 1709 yet, so I can't test with it.
+1.  In the Windows 10 Fall Creators Update (Windows 10 build 1709),
+    Hyper-V started shipping with a default NAT network.
+    That will make configuration easier,
+    but my work machine doesn't have 1709 yet so I can't test with it.

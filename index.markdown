@@ -33,13 +33,13 @@ there will be a list of things to cover.
 
 Who should read this tutorial?
 
- -  I assume a mid-level Powershell background.
+-   I assume a mid-level Powershell background.
     You should be comfortable reading and writing Powershell scripts.
- -  I assume at least a passing familiarity with Powershell DSC.
+-   I assume at least a passing familiarity with Powershell DSC.
     You may not have written a DSC configuration before,
     but you should understand at a high level what DSC is for
     and be willing to research concepts you don't understand.
- -  You should be able to use the Hyper-V GUI tools on a Windows client OS (such as Windows 10 Pro).
+-   You should be able to use the Hyper-V GUI tools on a Windows client OS (such as Windows 10 Pro).
     We don't do anything too complex with Hyper-V in this tutorial,
     but you should understand basic concepts like VMs, VHDs, VSwitches, and so forth.
 

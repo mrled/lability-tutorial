@@ -15,7 +15,7 @@ Before deploying this lab,
 you must have an existing Hyper-V external switch.
 
 (NOTE: For more information about Hyper-V's switch types,
-see [Hyper-V: what are the uses for different types of virtual networks?](https://blogs.technet.microsoft.com/jhoward/2008/06/17/hyper-v-what-are-the-uses-for-different-types-of-virtual-networks/))
+see [Chapter 4](../04-SimpleExpanded#hyperv-vswitchtypes).)
 
 Open the `Hyper-V Manager` application,
 click on `Virtual Switch Manager...` in the right pane,
@@ -106,6 +106,9 @@ If a switch with that name already exists, Lability will use it;
 if not, Lability will create an internal Hyper-V switch.
 For more information about all the keys that Lability interprets specially,
 see the `about_ConfigurationData` help topic.
+For more information about defining switches in Lability,
+especially if you wish to define a new external switch in your configuration data,
+see the `about_Networking` help topic.
 
 Finally, other keys such as `InterfaceAlias` or `AddressFamily` are not treated specially at all,
 and must be used in a DSC configuration block.
@@ -194,15 +197,15 @@ Start-Lab -ConfigurationData $configData -Verbose
 
 The `Start-LabConfiguration` command does quite a lot:
 
- -  Downloads any Windows trial media to `C:\Lability\ISOs` if they do not already exist there
+-   Downloads any Windows trial media to `C:\Lability\ISOs` if they do not already exist there
     (this can take a long time!)
- -  Downloads any DSC resources or other necessary for the configuration to `C:\Lability\Resources`
- -  Creates virtual hard disk images (VHD or VHDX files) to use as virtual disks for lab VMs
- -  Installs Windows to these images offline (without having to start the VMs),
+-   Downloads any DSC resources or other necessary for the configuration to `C:\Lability\Resources`
+-   Creates virtual hard disk images (VHD or VHDX files) to use as virtual disks for lab VMs
+-   Installs Windows to these images offline (without having to start the VMs),
     and saves the results to `C:\Lability\MasterVirtualHardDisks`.
     This means that once you have used a lab VM with a given OS once, for any lab,
     any new lab can use the VM without having to install Windows again.
- -  Applies any customizations to copies of these master virtual disks and saves them to `C:\Lability\VMVirtualHardDisks`,
+-   Applies any customizations to copies of these master virtual disks and saves them to `C:\Lability\VMVirtualHardDisks`,
     embedding the Powershell DSC configuration we wrote above
     so that it gets automatically applied when the machine boots.
 

@@ -1,16 +1,9 @@
 # Chapter 5: Simple private network
 {:.no_toc}
 
-WARNING: INCOMPLETE STUB CHAPTER
-
 Build a simple private network,
 with two VMs who can talk to each other,
 but cannot talk to the Hyper-V host or the Internet.
-
--   Add an additional node to the configuration data
--   Explain `NodeName = '*'`
--   Create a private network with no Internet access
--   Explain types of switches and what happens if the switch doesn't already exist
 
 ## On this page
 {:.no_toc}
@@ -34,7 +27,7 @@ it actually sets default values for all nodes.
 This is a useful way to avoid heavy repetition that might otherwise be unavoidable
 when configuring multiple similar nodes.
 
-## Private networking
+## The lab network
 
 In the non-node data, we declare a _private_ Hyper-V network, like so:
 
@@ -44,13 +37,40 @@ Network = @(
 )
 {% endhighlight %}
 
-See [Hyper-V switch types](../99-Backmatter/Hyper-V-Concepts/switch-types/) for more information about different switch types.
-
-The important thing to keep in mind is that
-_private Hyper-V switches allow VMs to communicate only with each other_.
+A private switch allows VMs to communicate only with each other -
+not the Internet or even with the host machine.
 In this chapter, we will not be connecting the VMs to the Internet,
 or even connecting to a host network.
 The only way to interact with VMs on a private network is to use the Hyper-V console.
+
+### Declaring switches that already exist
+
+Previously, we have declared the use of a switch which we first created by hand on the Hyper-V host,
+such that when it is referenced, that switch already exists.
+
+We can also declare use of switches which do not yet exist on the host.
+If that switch is defined in `NonNodeData`,
+then the definition laid out in that section is used.
+If it isn't, then Lability creates a new internal Hyper-V switch.
+
+### More information on Hyper-V switch types
+
+See [Hyper-V switch types](../99-Backmatter/Hyper-V-Concepts/switch-types/)
+for more information about different switch types.
+
+## Deploy the lab
+
+Run the [Deploy-SIMPLENET.ps1](#deploy-simplenetps1) script to deploy the lab.
+
+### Lab exercises
+
+1.  Log in to one of the servers using the Hyper-V management console
+    and ping the other server by IP address.
+
+2.  Log in to one of the servers using the Hyper-V management console
+    and use `Enter-PSSession` to connect to the other server by IP address.
+
+TODO: I need to write a quick guide on connecting via WinRM/PS remoting and reference it everywhere.
 
 ## Lab files
 

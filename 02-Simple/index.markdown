@@ -14,8 +14,8 @@ In this chapter, we define and deploy a very simple Lability configuration.
 Before deploying this lab,
 you must have an existing Hyper-V external switch.
 
-(NOTE: For more information about Hyper-V's switch types,
-see [Chapter 4](../04-SimpleExpanded#hyperv-vswitchtypes).)
+(See [Hyper-V switch types](../99-Backmatter/Hyper-V-Concepts/switch-types)
+for more information about Hyper-V's switch types.)
 
 Open the `Hyper-V Manager` application,
 click on `Virtual Switch Manager...` in the right pane,

@@ -69,7 +69,7 @@ That is, if we have configuration data like this:
 ... then our VM will look for an existing switch called `PrefixValue-External-Switch`,
 rather than merely `External-Switch`.
 This means that if we use a switch created ahead of time with the name `External-Switch`,
-we cannpot use the `EnvironmentPrefix` in the `Lability` key for the `NonNodeData` section of our configuration data.
+we cannot use the `EnvironmentPrefix` in the `Lability` key for the `NonNodeData` section of our configuration data.
 
 Therefore, in this chapter,
 we do not use the `EnvironmentPrefix` key.
@@ -120,7 +120,7 @@ Script "InstallFirefox" {
 
 ## DSC modules and versions
 
-You can define a `DSCReources` subkey of `NonNodeData`
+You can define a `DSCResources` subkey of `NonNodeData`
 to declare the names and versions of the DSC resources you wish to use with your nodes.
 
 If this subkey is not defined in your configuration data,
@@ -129,7 +129,7 @@ Lability will whatever version of the DSC resource is installed on your Hyper-V 
 That said, it is best practice to define the version in your configuration data,
 because doing so allows you to specify a specific resource version
 rather than simply using whatever is installed locally.
-Lability will automatically download any (specified version of) a module in `DSCReources`,
+Lability will automatically download any (specified version of) a module in `DSCResources`,
 and save it to `$env:LabilityResourcePath`.
 This makes your configurations more portable,
 and protects against accidentally installing a new version of the resource that may include breaking changes.

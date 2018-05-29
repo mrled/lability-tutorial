@@ -102,7 +102,7 @@ Unfortunately, if the DSC configuration does not complete successfully,
 the logon screen will never appear,
 and there will be no obvious way to troubleshoot problems.
 
-This secion describes troubleshooting methods that I turn to when this happens.
+This section describes troubleshooting methods that I turn to when this happens.
 
 ### The sledgehammer - reset the VM
 

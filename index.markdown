@@ -88,7 +88,7 @@ Who should read this tutorial?
      -  Discuss double-NAT
      -  Show how to connect to the VMs behind NAT via PS remoting if the gateway is up
 
-7.  [AD domain behind NAT network](07-AdDomamin):
+7.  [AD domain behind NAT network](07-AdDomain):
     three VMs, one domain controller, one NAT gateway, and one Windows 10 client
 
      -  Discuss ordering of resources in the config file to minimize errors

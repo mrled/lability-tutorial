@@ -139,7 +139,7 @@ That uses a Powershell expression to only apply to nodes we gave the `CLIENT` ro
 If we had defined other nodes in our configuration data that did not have this role,
 none of the configuration in that block would apply to them.
 
-Inside of that block we have _resource delcarations_,
+Inside of that block we have _resource declarations_,
 which declare the desired state for the node.
 For instance, at the bottom of our `node` block,
 we can see the following:

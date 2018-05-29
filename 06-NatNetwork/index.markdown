@@ -187,6 +187,11 @@ There are two final items to keep in mind when manually assigning MAC addresses 
 TODO: I think there's a way to use PS remoting to get to machines behind the gateway,
 but I need to research this.
 
+I think this is what I need:
+[PowerShell Remoting and the "Double-Hop" Problem](https://blogs.msdn.microsoft.com/clustering/2009/06/25/powershell-remoting-and-the-double-hop-problem/).
+
+Implement this and write it up.
+
 ## Lab files
 
 ### [ConfigurationData.NATNET.psd1](https://github.com/mrled/lability-tutorial/tree/master/06-NatNetwork/ConfigurationData.NATNET.psd1)

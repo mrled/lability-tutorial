@@ -74,21 +74,21 @@ Who should read this tutorial?
         and what happens if DSC modules are not defined in the config data
         (move this from 02-Simple)
 
-5.  Simple private network
+5.  [Simple private network](05-SimpleNetwork)
 
      -  Add an additional node
      -  Explain `NodeName = '*'`
      -  Create an internal network
      -  Explain types of switches and what happens if the switch doesn't already exist
 
-6.  NAT network configuration:
+6.  [NAT network configuration](06-NatNetwork):
     two VMs, one with two NICs acting as a NAT gateway, and one with just one NIC behind the NAT.
 
      -  Discuss problems related to two NICs and nondeterministic switch assignment order
      -  Discuss double-NAT
      -  Show how to connect to the VMs behind NAT via PS remoting if the gateway is up
 
-7.  AD domain behind NAT network:
+7.  [AD domain behind NAT network](07-AdDomamin):
     three VMs, one domain controller, one NAT gateway, and one Windows 10 client
 
      -  Discuss ordering of resources in the config file to minimize errors

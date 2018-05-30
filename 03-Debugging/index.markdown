@@ -138,35 +138,12 @@ then you may be able to log on using Powershell Remoting
 
 To attempt this, follow the following steps:
 
-1.  Get the IP address from Hyper-V Manager
-
-    Click on the VM, then select the "Networking" tab at the bottom.
-    You will see a list of network adapters assigned to the VM.
-    If any have an IP address, it will be displayed as well.
-
-2.  Configure your host to allow insecure WinRM connections to the VM
-
-    By default, WinRM is configured to refuse to connect to a server
-    if the connection cannot be secured.
-    We must disable this security for your VM's IP address in order to connect.
-    However, this is nothing to be concerned about, for two reasons:
-
-     -  The remote server is a VM on your workstation,
-        and therefore has no untrusted network (like the Internet)
-        where your credentials could be subject to a MITM attack.
-     -  The lab has just been created and should contain no sensitive data.
-
-    To disable security for your VM, run:
-
+1.  Get the IP address of the VM
+2.  Configure your host to allow insecure WinRM connections to the VM with something like
     `Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value <VM IP address>`
+3.  Connect to the VM with `Enter-PSSession`
 
-3.  Connect to the VM
-
-    Get the credential for your VM -
-    remember to use `Administrator` for the username with the password you selected -
-    and create a new Powershell Remoting session to it.
-
-    `Enter-PSSession -ComputerName <VM IP address> -Credential (Get-Credential)`
+These steps are laid out in more detail in [Powershell Remoting](../backmatter/concepts/powershell/remoting)
 
 If that worked, you are now connected to the VM and can explore its filesystem,
 including the Bootstrap log referenced above.

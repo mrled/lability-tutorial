@@ -8,11 +8,18 @@ author:
   url: https://me.micahrl.com
 collections_dir: collections
 collections:
-  hyperv-concepts:
+  hypervconcepts:
     output: true
-    permalink: /backmatter/hyperv-concepts/:name
+    permalink: /backmatter/concepts/hyperv/:name
+  powershellconcepts:
+    output: true
+    permalink: /backmatter/concepts/powershell/:name
 defaults:
   - scope:
-      type: hyperv-concepts
+      type: hypervconcepts
+    values:
+      layout: default
+  - scope:
+      type: powershellconcepts
     values:
       layout: default

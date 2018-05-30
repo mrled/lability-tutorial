@@ -94,7 +94,7 @@ two switches in two adapters, etc.
 By default, Windows names these adapters `Ethernet`, `Ethernet 2`, `Ethernet 3`, etc.
 
 For more information about Hyper-V switch types,
-see [Hyper-V switch types](../backmatter/hyperv-concepts/switch-types)
+see [Hyper-V switch types](../backmatter/concepts/hyperv/switch-types)
 
 ### Hyper-V network order is not predictable
 
@@ -187,13 +187,13 @@ There are two final items to keep in mind when manually assigning MAC addresses 
 
 ## Remoting to machines behind the NAT gateway
 
-TODO: I think there's a way to use PS remoting to get to machines behind the gateway,
-but I need to research this.
+We discovered in [Chapter 3](../03-Debugging) that it is possible to use PS Remoting
+to connect to a lab VM.
+As it turns out,
+it is also possible to do this for a lab VM behind a NAT gateway,
+but it is a bit trickier.
 
-I think this is what I need:
-[PowerShell Remoting and the "Double-Hop" Problem](https://blogs.msdn.microsoft.com/clustering/2009/06/25/powershell-remoting-and-the-double-hop-problem/).
-
-Implement this and write it up.
+TODO: finish me
 
 ## Lab files
 

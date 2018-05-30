@@ -55,12 +55,18 @@ If it isn't, then Lability creates a new internal Hyper-V switch.
 
 ### More information on Hyper-V switch types
 
-See [Hyper-V switch types](../backmatter/hyperv-concepts/switch-types)
+See [Hyper-V switch types](../backmatter/concepts/hyperv/switch-types)
 for more information about different switch types.
 
 ## Deploy the lab
 
 Run the [Deploy-SIMPLENET.ps1](#deploy-simplenetps1) script to deploy the lab.
+
+You can connect to the lab via Hyper-V Console,
+but you won't be able to use [Powershell Remoting](../backmatter/concepts/powershell/remoting),
+because your VMs are on a private network that is not directly connected to your host.
+However, you can log on to one machine via the Hyper-V Console,
+and use PS Remoting to connect to the other machine in the lab from there.
 
 ### Lab exercises
 
@@ -69,8 +75,6 @@ Run the [Deploy-SIMPLENET.ps1](#deploy-simplenetps1) script to deploy the lab.
 
 2.  Log in to one of the servers using the Hyper-V management console
     and use `Enter-PSSession` to connect to the other server by IP address.
-
-TODO: I need to write a quick guide on connecting via WinRM/PS remoting and reference it everywhere.
 
 ## Lab files
 

@@ -187,13 +187,9 @@ There are two final items to keep in mind when manually assigning MAC addresses 
 
 ## Remoting to machines behind the NAT gateway
 
-We discovered in [Chapter 3](../03-Debugging) that it is possible to use PS Remoting
-to connect to a lab VM.
-As it turns out,
-it is also possible to do this for a lab VM behind a NAT gateway,
-but it is a bit trickier.
-
-TODO: finish me
+We can use PS Remoting to issue commands to VMs behind the NAT gateway,
+but it is a bit tricky and inconvenient.
+See [Powershell Remoting](../backmatter/concepts/powershell/remoting) if you wish to do this.
 
 ## Lab files
 

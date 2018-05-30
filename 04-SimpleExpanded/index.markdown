@@ -21,7 +21,7 @@ if you have a different name for the external Hyper-V switch you wish to use,
 make sure to replace it in the config data below.
 
 For more information about Hyper-V switch types,
-see [Hyper-V switch types](../backmatter/hyperv-concepts/switch-types)
+see [Hyper-V switch types](../backmatter/concepts/hyperv/switch-types)
 
 For more information about using different types of Hyper-V switches in Lability,
 see the `about_Networking` help topic.

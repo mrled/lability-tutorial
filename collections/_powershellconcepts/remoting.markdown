@@ -2,12 +2,46 @@
 ---
 
 # Powershell Remoting
+{:.no_toc}
+
+Build a simple private network,
+with two VMs who can talk to each other,
+but cannot talk to the Hyper-V host or the Internet.
 
 Powershell has built-in remoting, based on WinRM, and called Powershell Remoting.
 
-Lability uses its bootstrap process to enable the PS Remoting _server_ for all out-of-the-box media.
-It also configures the firewall to allow access.
-For more information about this, see the `about_Bootstrap` help topic.
+## On this page
+{:.no_toc}
+
+* TOC
+{:toc}
+
+## Scope
+
+Windows Remoting (or WinRM), which underpins Powershell Remoting, is a large topic.
+This document is not a general primer on Windows Remoting,
+but only discusses Powershell remoting scenarios that are a good fit for Lability labs.
+To that end, our scope is:
+
+1.  Remoting that works out of the box.
+
+    Actually, WinRM is not enabled at all on a default Windows install.
+    However, Lability uses its bootstrap process to enable the PS Remoting server for all media it knows about.
+    It also configures the firewall to allow access.
+    For more information about this, see the `about_Bootstrap` help topic.
+
+2.  Remoting that works on older OSes
+
+    SSH remoting is much simpler,
+    but this has not shipped with any version of Windows except the very latest Windows 10 release,
+    and anyway, Lability doesn't enable it by default even on that OS.
+
+3.  Remoting that works for machines that are not joined to the same domain,
+    or any domain at all
+
+    This limits us to using CredSSP rather than Kerberos credential passing.
+    In production, this is not particularly secure,
+    but for the threat model of a lab environment this does not adversely affect security posture.
 
 ## Interactivity
 
@@ -74,7 +108,7 @@ You can obtain this from Hyper-V Manager by selecting the VM and clicking on the
 or from Powershell with a command like this:
 
 {% highlight powershell %}
-Get-VM -Name <VM name> | Select-Object -ExpandProperty NetworkAdapters
+<# PS@host #> Get-VM -Name <VM name> | Select-Object -ExpandProperty NetworkAdapters
 {% endhighlight %}
 
 ## Remoting and trust
@@ -95,7 +129,7 @@ However, this is nothing to be concerned about, for two reasons:
 You can configure your workstation to disable security for just your lab VM:
 
 {% highlight powershell %}
-Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value <VM IP address>
+<# PS@host #> Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value <VM IP address>
 {% endhighlight %}
 
 ## Remoting to a Hyper-V VM
@@ -140,8 +174,6 @@ first save some values to variables.
 Next, configure trust as mentioned previously.
 Trust the gateway from your host,
 and then trust the destination from your gateway.
-
-TODO: write something about `$using:` variables
 
 {% highlight powershell %}
 <# PS@host #> Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value $gatewayIp

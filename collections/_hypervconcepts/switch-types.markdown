@@ -1,3 +1,6 @@
+---
+---
+
 # Hyper-V switch types
 
 Hyper-V knows about 3 different types of switches:

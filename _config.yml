@@ -6,3 +6,13 @@ baseurl: /lability-tutorial
 author:
   name: Micah R Ledbetter
   url: https://me.micahrl.com
+collections_dir: collections
+collections:
+  hyperv-concepts:
+    output: true
+    permalink: /backmatter/hyperv-concepts/:name
+defaults:
+  - scope:
+      type: hyperv-concepts
+    values:
+      layout: default

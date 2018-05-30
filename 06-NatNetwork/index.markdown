@@ -94,7 +94,7 @@ two switches in two adapters, etc.
 By default, Windows names these adapters `Ethernet`, `Ethernet 2`, `Ethernet 3`, etc.
 
 For more information about Hyper-V switch types,
-see [Hyper-V switch types](../99-Backmatter/Hyper-V-Concepts/switch-types)
+see [Hyper-V switch types](../backmatter/hyperv-concepts/switch-types)
 
 ### Hyper-V network order is not predictable
 

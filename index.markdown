@@ -105,3 +105,6 @@ Other items on my mind:
     Hyper-V started shipping with a default NAT network.
     That will make configuration easier,
     but my work machine doesn't have 1709 yet so I can't test with it.
+
+2.  I think Lability can apply updates to VHDs before starting VMs...
+    look at `C:\Lability\Hotfixes`.

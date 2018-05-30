@@ -55,7 +55,7 @@ If it isn't, then Lability creates a new internal Hyper-V switch.
 
 ### More information on Hyper-V switch types
 
-See [Hyper-V switch types](../99-Backmatter/Hyper-V-Concepts/switch-types/)
+See [Hyper-V switch types](../backmatter/hyperv-concepts/switch-types)
 for more information about different switch types.
 
 ## Deploy the lab

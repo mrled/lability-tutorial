@@ -67,7 +67,7 @@ but cuts out dozens and dozens of errors that are probably not part of whatever 
 
 ### Using Show-ErrorReport.ps1
 
-To make this a bit more readable, I have included a `Show-ErrorReport.ps1` script below.
+To make this a bit more readable, I have included a [`Show-ErrorReport.ps1` script below](#show-errorreportps1).
 This takes the records in `$Error` and makes them more easily read by humans.
 This script is entirely optional,
 so if there is some other way you prefer to investigate `$Error` records,
@@ -82,12 +82,6 @@ you could run it like this instead:
     $_ -NotMatch 'CustomMedia.json' -and
     $_ -NotMatch 'HKLM:\\SOFTWARE\\Microsoft\\PowerShell\\3\\DSC'
 }) | more
-{% endhighlight %}
-
-### The [Show-ErrorReport.ps1](https://github.com/mrled/lability-tutorial/tree/master/03-Debugging/Show-ErrorReport.ps1) script
-
-{% highlight powershell %}
-{% include_relative Show-ErrorReport.ps1 %}
 {% endhighlight %}
 
 ## Debugging a lab VM that never shows the logon screen
@@ -147,3 +141,65 @@ These steps are laid out in more detail in [Powershell Remoting](../backmatter/c
 
 If that worked, you are now connected to the VM and can explore its filesystem,
 including the Bootstrap log referenced above.
+
+## Lab exercises and files
+
+1.  Explore the `Show-ErrorReport` script included here.
+    Generate some errors in Powershell,
+    use `Show-ErrorReport` to see the errors,
+    and compare the output of that script with the result of merely typing `$Error` at the prompt.
+
+    Note that `Show-ErrorReport` works with any Powershell error,
+    and has no logic specific to Lability.
+
+2.  Filter errors for the `Show-ErrorReport` script.
+    Since `Show-ErrorReport` is not specific to Lability,
+    you can generate your own errors for filtering.
+    For instance, you might try:
+
+    -   Listing nonexistent directories like `Get-ChildItem -Path C:\nonexistent`
+    -   Throwing errors directly with `throw "this is an error"`
+
+3.  Modify the example configuration from [Chapter 2](../02-Simple)
+    to hang at the Hyper-V boot screen.
+
+    One way to do that might be to change the `xComputer` resource to attempt to join a domain.
+    That might look like this:
+
+        xComputer 'Hostname' {
+            Name       = $node.NodeName;
+            DomainName = "example.com"
+            Credential = New-Object -TypeName PSCredential -ArgumentList @(
+                "fake@example.com"
+                "fakePassword@123" | ConvertTo-SecureString -AsPlainText -Force
+            )
+        }
+
+    With this configuration,
+    the VM will wait until it can join a domain before presenting the logon screen.
+    Assuming there is no `example.com` domain on your local network
+    that has a user named `fake` with a password of `fakePassword@123`,
+    attempting to join that domain will fail,
+    and the VM will hang indefinitely at the Hyper-V boot screen.
+
+4.  Reset a VM that is hung at the Hyper-V boot screen and troubleshoot it
+
+    -   Deploy the example configuration you just created
+    -   Wait for the VM to hang
+    -   Reset the VM
+    -   Log in
+    -   Find the logs that detail the hang
+
+5.  Use Powershell Remoting to connect to a machine that is hung at the Hyper-V boot screen
+
+    -   Redeploy the example configuration you just created
+        (deleting the old deployment if it still exists)
+    -   Wait for the VM to hang
+    -   Log in using Powershell Remoting
+    -   Find the logs that detail the hang
+
+### [Show-ErrorReport.ps1](https://github.com/mrled/lability-tutorial/tree/master/03-Debugging/Show-ErrorReport.ps1)
+
+{% highlight powershell %}
+{% include_relative Show-ErrorReport.ps1 %}
+{% endhighlight %}

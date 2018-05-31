@@ -191,7 +191,34 @@ We can use PS Remoting to issue commands to VMs behind the NAT gateway,
 but it is a bit tricky and inconvenient.
 See [Powershell Remoting](../backmatter/concepts/powershell/remoting) if you wish to do this.
 
-## Lab files
+## Lab exercises and files
+
+1.  Deploy the lab with [Deploy-NATNET.ps1](#deploy-natnetps1)
+
+2.  Log on to both the gateway machine (`EDGE1`) and the machine behind the gateway (`CLIENT1`).
+
+    Prove that each can talk to the Internet by pinging an address or visiting a website.
+
+    Compare the following from each VM:
+
+    -   The list of network interfaces from `Get-NetIpAddress`
+    -   The routing table from `Get-NetRoute`
+    -   The traceroute to a host like CloudFlare's 1.1.1.1 DNS servers from
+        `Test-NetConnection -ComputerName 1.1.1.1 -TraceRoute`
+
+3.  Use Powershell Remoting to run commands against the `CLIENT1` machine from your lab host
+
+4.  Add a server machine behind the gateway.
+
+    Add a Windows 2016 VM as `SERVER1`,
+    give it a different role such as `SERVER`,
+    modify [ConfigurationData.NATNET.ps1](#configurationdatanatnetps1) to include the `xSmbShare` DSC resource,
+    and modify [Configure-NATNET.ps1](#configure-natnetps1) to configure the fileshare.
+    (See documentation for `xSmbShare` [on GitHub](https://github.com/PowerShell/xSmbShare).)
+
+    Redeploy the lab with this change,
+    log on to the `CLIENT1` machine,
+    and connect to the SMB share you defined.
 
 ### [ConfigurationData.NATNET.psd1](https://github.com/mrled/lability-tutorial/tree/master/06-NatNetwork/ConfigurationData.NATNET.psd1)
 

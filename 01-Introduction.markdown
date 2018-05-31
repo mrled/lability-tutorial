@@ -26,6 +26,36 @@ This is very powerful.
     and have high confidence that you can recreate that lab later if necessary.
     You can also easily share labs with coworkers.
 
+## Installing Lability
+
+You can install Lability from PowerShellGet.
+
+If you have never installed modules from the PSGallery before,
+you will first have to configure PowerShellGet to trust PSGallery.
+(This only needs to be done once per host;
+if you've done it before, it's not necessary to repeat.)
+
+{% highlight powershell %}
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+{% endhighlight %}
+
+Once that has been done, you can install Lability:
+
+{% highlight powershell %}
+Install-Module -Name Lability
+Import-Module -Name Lability
+{% endhighlight %}
+
+After installing Lability, you must tell it to configure itself.
+You can customize its configuration with `Get-LabHostConfiguration` and `Set-LabHostConfiguration`,
+but for most typical users this will not be necessary.
+For it to configure itself (whether you customized the configuration or not), you must run:
+
+{% highlight powershell %}
+Start-LabHostConfiguration -Verbose
+Test-LabHostConfiguration -Verbose
+{% endhighlight %}
+
 ## Lability documentation
 
 Unfortunately, [the Lability readme](https://github.com/VirtualEngine/Lability/blob/dev/Readme.md) is a bit terse.
@@ -70,3 +100,15 @@ At the time of this writing, they are:
 Finally, you can also [browse the Lability examples on GitHub](https://github.com/VirtualEngine/Lability/tree/dev/Examples).
 These examples, along with this tutorial,
 can serve as a useful starting point for new test labs.
+
+## Lab exercises
+
+1.  Install Lability
+
+2.  Explore the help topics for Lability commands run in this chapter,
+    and at least the `about_Lability` help topic
+
+3.  Read more about the commands for configuring the lab host,
+    and understand when you might want to change them
+
+4.  Configure the lab host as discussed above

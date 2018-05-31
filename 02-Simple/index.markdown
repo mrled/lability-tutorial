@@ -255,7 +255,21 @@ Unless your DSC configuration specifically added others,
 the only user on your VM will be the default local Administrator account.
 Type `Administrator` for the username and use the password you selected earlier to log on.
 
-## Lab files
+## Lab exercises and files
+
+1.  Deploy the lab,
+    either typing the commands on a Powershell prompt
+    or running the `Deploy-SIMPLE.ps1` script.
+
+2.  Wait for the VM to come up
+    (to show working Lability and DSC configurations)
+
+3.  Log on to the VM using Hyper-V Manager and Hyper-V Console
+
+4.  Launch a browser and visit a website from the VM
+    (to show a working network configuration)
+
+If you get stuck, see [Chapter 3: Debugging](../03-Debugging).
 
 ### [ConfigurationData.SIMPLE.psd1](https://github.com/mrled/lability-tutorial/tree/master/02-Simple/ConfigurationData.SIMPLE.psd1)
 

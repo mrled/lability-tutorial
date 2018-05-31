@@ -108,3 +108,5 @@ Other items on my mind:
 
 2.  I think Lability can apply updates to VHDs before starting VMs...
     look at `C:\Lability\Hotfixes`.
+
+3.  Add lab exercises to all chapters

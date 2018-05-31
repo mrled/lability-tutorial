@@ -156,7 +156,32 @@ which indicates a _Community_ resource.
 Resources with no name prefix ship with DSC,
 and do not require declaration in the configuration data.
 
-## Lab files
+## Lab exercises and files
+
+1.  Deploy the lab and log on.
+    Launch Firefox and visit a website.
+
+2.  Explore custom Lability resources that get copied to the VM under `C:\Resources`
+
+3.  Add another custom resource, redeploy, log on, test the resource.
+
+    Make sure to add the custom Lability resource to `NonNodeData`,
+    and also to use it in [`Configure.SIMPLEX.ps1`](#configuresimplexps1)
+    by referencing it in a DSC resource.
+
+    This can be anything,
+    but you might want to pick something that is relatively small for a quick download.
+    For instance, you might add the [SysinternalsSuite zipfile](https://docs.microsoft.com/en-us/sysinternals/downloads/)
+    as a custom Lability resource,
+    and then use the DSC `Script` resource to start `procexp.exe` on logon.
+
+4.  Explore custom DSC resources that get copied to the VM under `C:\Program Files\WindowsPowerShell\Modules`
+
+5.  Add and use another DSC resource.
+    You might consider trying to add the
+    [`cChoco` module](https://github.com/chocolatey/cChoco),
+    which contains resources like `cChocoInstaller` to install Chocolatey,
+    and `cChocoPackageInstall` to install Chocolatey packages.
 
 ### [ConfigurationData.SIMPLEX.psd1](https://github.com/mrled/lability-tutorial/tree/master/04-SimpleExpanded/ConfigurationData.SIMPLEX.psd1)
 

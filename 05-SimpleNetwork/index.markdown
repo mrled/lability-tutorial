@@ -58,25 +58,29 @@ If it isn't, then Lability creates a new internal Hyper-V switch.
 See [Hyper-V switch types](../backmatter/concepts/hyperv/switch-types)
 for more information about different switch types.
 
-## Deploy the lab
+## Lab exercises and files
 
-Run the [Deploy-SIMPLENET.ps1](#deploy-simplenetps1) script to deploy the lab.
+1.  Deploy the lab with [Deploy-SIMPLENET.ps1](#deploy-simplenetps1)
 
-You can connect to the lab via Hyper-V Console,
-but you won't be able to use [Powershell Remoting](../backmatter/concepts/powershell/remoting),
-because your VMs are on a private network that is not directly connected to your host.
-However, you can log on to one machine via the Hyper-V Console,
-and use PS Remoting to connect to the other machine in the lab from there.
+2.  Log in to one of the servers using the Hyper-V management console.
 
-### Lab exercises
+    -   Ping the other server by its IP address
+    -   Use `Enter-PSSession` to connect to the other server
 
-1.  Log in to one of the servers using the Hyper-V management console
-    and ping the other server by IP address.
+3.  Run `Get-NetIpAddress` on your lab host and try to understand each network device that it returns.
 
-2.  Log in to one of the servers using the Hyper-V management console
-    and use `Enter-PSSession` to connect to the other server by IP address.
+    Observe that there is no network device on the private network,
+    and therefore no way for you to RDP or `Enter-PSSession` to the VMs from your host.
 
-## Lab files
+4.  Change the network from "private" to "internal" and redeploy.
+
+    Run `Get-NetIpAddress` again and see a new IP address on the new internal Hyper-V switch.
+
+5.  Open Hyper-V Manager, click on Virtual Switch Manager,
+    and delete any switches you don't need.
+
+    (If you fail to delete internal or external switches that are no longer in use,
+    useful information in output of `Get-NetIpAddress` can get drowned in noise from old networks.)
 
 ### [ConfigurationData.SIMPLENET.psd1](https://github.com/mrled/lability-tutorial/tree/master/05-SimpleNetwork/ConfigurationData.SIMPLENET.psd1)
 

@@ -1,6 +1,10 @@
 # Chapter 7: AD domain
 {:.no_toc}
 
+WARNING:
+THIS IS AN UNFINISHED CHAPTER, AND THE WINDOWS EVENT FORWARDING STUFF DOES NOT YET WORK.
+CURRENTLY, THIS CHAPTER MAY FAIL TO DEPLOY ENTIRELY.
+
 Starting with the network from [Chapter 6](../06-NatNetwork),
 add a domain controller.
 

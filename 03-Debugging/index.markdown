@@ -142,6 +142,16 @@ These steps are laid out in more detail in [Powershell Remoting](../backmatter/c
 If that worked, you are now connected to the VM and can explore its filesystem,
 including the Bootstrap log referenced above.
 
+### Resource ordering
+
+If you wish to use Powershell remoting,
+it is worth paying extra attention when writing your DSC configurations.
+You should try to bring up network interfaces as quickly as possible,
+and leave failure-prone resources to the end of the configuration.
+
+This reduces the chance that a resource fails before the VM has joined the network,
+maximizing the likelihood that Powershell Remoting will be available when you need it.
+
 ## Lab exercises and files
 
 1.  Explore the `Show-ErrorReport` script included here.

@@ -11,6 +11,7 @@ Configuration AdLabConfig {
     Import-DscResource -Module xDnsServer -ModuleVersion 1.7.0.0
     Import-DscResource -Module xNetworking -ModuleVersion 5.7.0.0
     Import-DscResource -Module xSmbShare -ModuleVersion 2.0.0.0
+    Import-DscResource -Module xWindowsEventForwarding -ModuleVersion 1.0.0.0
 
     # Common configuration for all nodes
     node $AllNodes.Where({$true}).NodeName {
@@ -136,6 +137,7 @@ Configuration AdLabConfig {
 
     }
 
+    # Configure the AD domain
     node $AllNodes.Where({$_.Role -in 'DC'}).NodeName {
 
         xComputer 'Hostname' {
@@ -211,9 +213,9 @@ Configuration AdLabConfig {
             DependsOn        = '[xADUser]User1';
         }
 
-    } #end nodes DC
+    }
 
-    node $AllNodes.Where({$_.Role -in 'WEB','SQL','EDGE'}).NodeName {
+    node $AllNodes.Where({$_.Role -NotIn 'DC'}).NodeName {
         # Use user@domain for the domain joining credential
         $upn = "$($Credential.UserName)@$($node.DomainName)"
         $domainCred = New-Object -TypeName PSCredential -ArgumentList ($upn, $Credential.Password);
@@ -222,7 +224,45 @@ Configuration AdLabConfig {
             DomainName = $node.DomainName;
             Credential = $domainCred
         }
-    } #end nodes DomainJoined
+    }
+
+    # Configure Windows Event Forwarding on all source machines
+    node $AllNodes.Where({$_.Role -NotIn 'DC'}).NodeName {
+
+        # 1. Get the computer account for the WEF Collector
+        # 2. Add that account to the local "Event Log Readers" group on each other server
+
+    }
+
+    # Configure Windows Event Forwarding
+    node $AllNodes.Where({$_.Role -in 'DC'}).NodeName {
+        xWEFCollector "CreateWefCollector" {
+            Ensure = "Present"
+            Name = "UniqueIgnoredNameLolWhatever"
+        }
+
+        xWEFSubscription "WebSubscription" {
+            SubscriptionId = "AdLabSub"
+            Ensure = "Present"
+            SubscriptionType = "CollectorInitiated"
+            DeliveryMode = "Push"
+            ReadExistingEvents = $true
+
+            # Create a list of FQDNs like 'dc1.adlab.invalid'
+            Address = $configData.AllNodes.Where({$_.NodeName -ne '*'}).NodeName | Foreach-Object -Proces { "$_.$node.DomainName" }
+
+            # Which event logs to request to be forwarded
+            Query = @(
+                'Application:*'
+                'System:*'
+                'Microsoft-Windows-Desired State Configuration-Admin:*'
+                'Microsoft-Windows-Desired State Configuration-Operational:*'
+            )
+
+            DependsOn = "[xWEFCollector]CreateWefCollector"
+        }
+    }
+
 
     node $Allnodes.Where({'Firefox' -in $_.Lability_Resource}).NodeName {
         Script "InstallFirefox" {
@@ -252,25 +292,5 @@ Configuration AdLabConfig {
             PsDscRunAsCredential = $Credential
         }
     }
-
-    node $AllNodes.Where({$_.Role -in 'WEB'}).NodeName {
-        foreach ($feature in @(
-                'Web-Default-Doc',
-                'Web-Dir-Browsing',
-                'Web-Http-Errors',
-                'Web-Static-Content',
-                'Web-Http-Logging',
-                'Web-Stat-Compression',
-                'Web-Filtering',
-                'Web-Mgmt-Tools',
-                'Web-Mgmt-Console')) {
-            WindowsFeature $feature.Replace('-','') {
-                Ensure               = 'Present';
-                Name                 = $feature;
-                IncludeAllSubFeature = $true;
-                DependsOn            = '[xComputer]DomainMembership';
-            }
-        }
-    } #end nodes WEB
 
 } #end Configuration Example

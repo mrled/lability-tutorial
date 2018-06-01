@@ -25,7 +25,7 @@
         }
         @{
             NodeName                    = 'NATNET-CLIENT1';
-            Role                        = 'SERVER';
+            Role                        = 'CLIENT';
             CorpnetIPAddress            = '10.0.0.1/24';
             Lability_SwitchName         = 'NATNET-CORP';
             Lability_Media              = 'WIN10_x64_Enterprise_EN_Eval';

@@ -16,7 +16,7 @@
             IPAddress                   = '10.0.0.1/24';
         }
         @{
-            NodeName                    = 'CLIENT1';
+            NodeName                    = 'CLIENT2';
             Role                        = 'CLIENT';
             IPAddress                   = '10.0.0.2/24';
         }
@@ -28,8 +28,8 @@
                 @{ Name = 'CORP'; Type = 'Private'; }
             )
             DSCResource = @(
-                @{ Name = 'xComputerManagement'; RequiredVersion = '1.9.0.0'; }
-                @{ Name = 'xNetworking'; RequiredVersion = '3.2.0.0'; }
+                @{ Name = 'xComputerManagement'; RequiredVersion = '4.1.0.0'; }
+                @{ Name = 'xNetworking'; RequiredVersion = '5.7.0.0'; }
             );
         };
     };

@@ -142,6 +142,32 @@ These steps are laid out in more detail in [Powershell Remoting](../backmatter/c
 If that worked, you are now connected to the VM and can explore its filesystem,
 including the Bootstrap log referenced above.
 
+### Command-line access to event logs
+
+You can use the `wevtutil.exe` command to query the Event Log from the command line.
+This is usable over a PSRemoting session.
+Here are some examples:
+
+1.  Show help
+
+        wevtutil.exe /?
+
+2.  Show *all* events from the Application log as text (earliest events at the _top_)
+
+        wevtutil.exe query-events Application /format:text
+
+3.  Show the most recent 10 events in the Application log (earliest events at the _bottom_)
+
+        wevtutil.exe query-events Application /format:text /reversedirection:true /count:10
+
+4.  List all logs on the machine
+
+        wevtutil.exe enum-logs
+
+5.  Show the most recent 10 events in the DSC operational log (earliest events at _bottom_)
+
+        wevtutil.exe query-events Microsoft-Windows-DSC/Operational /format:text /reversedirection:true /count:10
+
 ### Resource ordering
 
 If you wish to use Powershell remoting,

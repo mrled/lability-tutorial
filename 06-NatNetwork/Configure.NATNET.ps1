@@ -112,20 +112,7 @@ Configuration NatNetwork {
                 Test-Path -Path "C:\Program Files\Mozilla Firefox"
             }
             SetScript            = {
-                $ffInstaller = "C:\Resources\Firefox-Latest.exe"
-                $firefoxIniFile = "${env:temp}\firefox-installer.ini"
-                $firefoxIniContents = @(
-                    "QuickLaunchShortcut=false"
-                    "DesktopShortcut=false"
-                )
-                Out-File -FilePath $firefoxIniFile -InputObject $firefoxIniContents -Encoding UTF8
-                $startProcParams = @{
-                    FilePath     = $ffInstaller
-                    ArgumentList = @('/INI="{0}"' -f $firefoxIniFile)
-                    Wait         = $true
-                    PassThru     = $true
-                }
-                $process = Start-Process @startProcParams
+                $process = Start-Process -FilePath "C:\Resources\Firefox-Latest.exe" -Wait -PassThru -ArgumentList @('-ms')
                 if ($process.ExitCode -ne 0) {
                     throw "Firefox installer at $ffInstaller exited with code $($process.ExitCode)"
                 }

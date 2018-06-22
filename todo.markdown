@@ -1,19 +1,20 @@
 # Todo
 
-## Todo list
+## Requirements for an initial release
 
-1.  In the Windows 10 Fall Creators Update (Windows 10 build 1709),
-    Hyper-V started shipping with a default NAT network.
-    That will make configuration easier,
-    but my work machine doesn't have 1709 yet so I can't test with it.
+-   Document use of Windows 10 FCU "Default Switch"
+    (work laptop was on 1703 when I wrote chapters 1-7)
+-   Test all chapters
+-   Expand or combine backmatter...
+    right now there's 3 sections with one concept each,
+    should have either more concepts in each or combine them all into one thing
 
-2.  I think Lability can apply updates to VHDs before starting VMs...
-    look at `C:\Lability\Hotfixes`.
+## Backlog
 
-3.  Add lab exercises to all chapters
+I want to write about these things eventually,
+but not for the initial release.
 
-## New chapter ideas
-
+-   Investigate `C:\Lability\Hotfixes` - it can apply them to VHDs before starting VMs?
 -   Linux gateway
 -   Entire Linux network
 -   Linux server joined to Windows domain
@@ -25,7 +26,7 @@
 -   Cookbook style organization, maybe for just a sub section of the book?
 -   Secrets with GPG + Powershell JSON support
 
-## Reorganization idea - cookbook style
+### Reorganization idea - cookbook style
 
 -   Have the recipes be the focus, which can depend on different recipes.
 -   For instance, Windows Event Forwarding recipe depends on AD network recipe depends on NAT network recipe...

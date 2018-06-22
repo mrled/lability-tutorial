@@ -5,6 +5,8 @@ Build a simple private network,
 with two VMs who can talk to each other,
 but cannot talk to the Hyper-V host or the Internet.
 
+Last tested: NEVER
+
 ## On this page
 {:.no_toc}
 

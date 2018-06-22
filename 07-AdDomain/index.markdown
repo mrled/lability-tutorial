@@ -8,6 +8,8 @@ CURRENTLY, THIS CHAPTER MAY FAIL TO DEPLOY ENTIRELY.
 Starting with the network from [Chapter 6](../06-NatNetwork),
 add a domain controller.
 
+Last tested: NEVER
+
 ## On this page
 {:.no_toc}
 

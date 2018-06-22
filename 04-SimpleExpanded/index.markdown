@@ -2,9 +2,10 @@
 {:.no_toc}
 
 We expand on the lab built in Chapter 2.
-
 We keep the single VM and the external Hyper-V switch,
 and add a discussion of lab prefixes, custom resources, and DSC modules and versions.
+
+Last tested: NEVER
 
 ## On this page
 {:.no_toc}

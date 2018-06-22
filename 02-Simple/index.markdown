@@ -3,6 +3,8 @@
 
 In this chapter, we define and deploy a very simple Lability configuration.
 
+Last tested: NEVER
+
 ## On this page
 {:.no_toc}
 

@@ -6,6 +6,8 @@ with one NAT gateway server on the public and private networks,
 and one NAT'ed server on the private network
 that accesses the Internet through the NAT gateway.
 
+Last tested: NEVER
+
 ## On this page
 {:.no_toc}
 

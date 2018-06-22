@@ -1,4 +1,4 @@
-Configuration SimpleExpandedConfig {
+Configuration SimpleNetworkConfig {
     param ()
 
     Import-DscResource -Module PSDesiredStateConfiguration

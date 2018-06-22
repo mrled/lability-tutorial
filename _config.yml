@@ -14,6 +14,9 @@ collections:
   powershellconcepts:
     output: true
     permalink: /backmatter/concepts/powershell/:name
+  labilityconcepts:
+    output: true
+    permalink: /backmatter/concepts/lability/:name
 defaults:
   - scope:
       type: hypervconcepts
@@ -21,5 +24,9 @@ defaults:
       layout: default
   - scope:
       type: powershellconcepts
+    values:
+      layout: default
+  - scope:
+      type: labilityconcepts
     values:
       layout: default

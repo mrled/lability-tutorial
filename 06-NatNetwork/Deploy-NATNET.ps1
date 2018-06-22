@@ -1,11 +1,14 @@
-[CmdletBinding()] Param()
+[CmdletBinding()] Param(
+    [SecureString] $AdminPassword = (Read-Host -AsSecureString -Prompt "Admin password"),
+    [string] $ConfigurationData = (Join-Path -Path $PSScriptRoot -ChildPath ConfigurationData.NATNET.psd1),
+    [string] $ConfigureScript = (Join-Path -Path $PSScriptRoot -ChildPath Configure.NATNET.ps1),
+    [string] $DscConfigName = "NatNetwork",
+    [switch] $IgnorePendingReboot
+)
 
 $ErrorActionPreference = "Stop"
 
-$configData = "$PSScriptRoot\ConfigurationData.NATNET.psd1"
-$adminCred = Get-Credential
-. "$PSScriptRoot\Configure.NATNET.ps1"
-& NatNetwork -ConfigurationData $configData -OutputPath $env:LabilityConfigurationPath -Credential $adminCred -Verbose
-Test-LabConfiguration -ConfigurationData $configData -Verbose
-Start-LabConfiguration -ConfigurationData $configData -Path $env:LabilityConfigurationPath -Verbose -Credential $adminCred -IgnorePendingReboot
-Start-Lab -ConfigurationData $configData -Verbose
+. $ConfigureScript
+& $DscConfigName -ConfigurationData $ConfigurationData -OutputPath $env:LabilityConfigurationPath -Verbose
+Start-LabConfiguration -ConfigurationData $ConfigurationData -Path $env:LabilityConfigurationPath -Verbose -Password $AdminPassword -IgnorePendingReboot:$IgnorePendingReboot
+Start-Lab -ConfigurationData $ConfigurationData -Verbose

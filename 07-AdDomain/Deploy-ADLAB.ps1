@@ -1,8 +1,14 @@
-[CmdletBinding()] Param()
+[CmdletBinding()] Param(
+    [SecureString] $AdminPassword = (Read-Host -AsSecureString -Prompt "Admin password"),
+    [string] $ConfigurationData = (Join-Path -Path $PSScriptRoot -ChildPath ConfigurationData.ADLAB.psd1),
+    [string] $ConfigureScript = (Join-Path -Path $PSScriptRoot -ChildPath Configure.ADLAB.ps1),
+    [string] $DscConfigName = "AdLabConfig",
+    [switch] $IgnorePendingReboot
+)
 
-$configData = "$PSScriptRoot\ConfigurationData.ADLAB.psd1"
-$adminCred = Get-Credential
-& AdLabConfig -ConfigurationData $configData -OutputPath $env:LabilityConfigurationPath -Credential $adminCred -Verbose
-Test-LabConfiguration -ConfigurationData $configData -Verbose
-Start-LabConfiguration -ConfigurationData $configData -Path $env:LabilityConfigurationPath -Verbose -Credential $adminCred -IgnorePendingReboot
-Start-Lab -ConfigurationData $configData -Verbose
+$ErrorActionPreference = "Stop"
+
+. $ConfigureScript
+& $DscConfigName -ConfigurationData $ConfigurationData -OutputPath $env:LabilityConfigurationPath -Verbose
+Start-LabConfiguration -ConfigurationData $ConfigurationData -Path $env:LabilityConfigurationPath -Verbose -Password $AdminPassword -IgnorePendingReboot:$IgnorePendingReboot
+Start-Lab -ConfigurationData $ConfigurationData -Verbose

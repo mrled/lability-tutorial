@@ -161,15 +161,16 @@ This is simple to do from Powershell.
 You can see the [Deploy-SIMPLE.ps1](#deploy-simpleps1) script in its entirety below.
 I typically write a short script like this to help me deploy the lab.
 However, in this section,
-I have also broken it out into commands that can be typed directly into Powershell
-to make it easier to describe what the commands are doing.
+I use commands that accomplish the same thing that can be typed directly into a Powershell prompt.
+The script is more repeatable,
+but the commands listed below are easier to dissect.
 
 ### Build the DSC MOF files:
 
 First, build the DSC MOF files:
 
 {% highlight powershell %}
-$configData = "$PSScriptRoot\ConfigurationData.SIMPLE.psd1"
+$configData = ".\ConfigurationData.SIMPLE.psd1"
 . Configure.SIMPLE.ps1
 & SimpleConfig -ConfigurationData $configData -OutputPath $env:LabilityConfigurationPath -Verbose
 {% endhighlight %}
@@ -183,15 +184,12 @@ and start Powershell DSC to apply the configuration in the compiled MOF file whe
 
 Then, start the lab configuration.
 
-Note that the `-Credential` parameter to `Start-LabConfiguration` has some surprising behavior -
-the username is ignored,
-but the password is used as the local administrator password
+Note that the `-Password` argument is used as the local administrator password
 for _every_ VM in your lab.
 
 {% highlight powershell %}
 $adminPassword = Read-Host -AsSecureString -Prompt "Admin password"
-$adminCred = New-Object -TypeName PSCredential -ArgumentList @("IgnoredUsername", $adminPassword)
-Start-LabConfiguration -ConfigurationData $configData -Verbose -Credential $adminCred
+Start-LabConfiguration -ConfigurationData $configData -Verbose -Password $adminPassword
 Start-Lab -ConfigurationData $configData -Verbose
 {% endhighlight %}
 
@@ -214,6 +212,10 @@ it may take quite some time to download the ISOs and install Windows.
 However, after this has been done once, subsequent runs are much faster -
 typically this step takes less than a minute on my machine.
 
+Finally, the `Start-Lab` command starts the VMs in Hyper-V.
+
+### `WARNING: A pending reboot is required`
+
 Note that you may want to pass `-IgnorePendingReboot` to `Start-LabConfiguration`.
 `Start-LabConfiguration` uses a DSC module behind the scenes called `xPendingReboot`
 to determine whether you need to reboot your system before it can deploy.
@@ -222,13 +224,13 @@ this is pretty important and you should reboot before continuing.
 However, it also checks for pending file renames.
 These can happen if something has attempted to rename or delete a locked file.
 Windows can schedule the rename/delete to happen at next boot,
-and `xPendingReboot` reads that schedule and instructs you to reboot if it sees any entries.
-These are so much more common than other (legitimate) reasons to reboot
-that I have taken to always passing `-IgnorePendingReboot`.
-If skipping the reboot for pending file renames can cause problems,
-I haven't seen any so far.
 
-Finally, the `Start-Lab` command starts the VMs in Hyper-V.
+You can pass `-IgnorePendingReboot` to `Start-LabConfiguration`,
+and the `Deploy-SIMPLE.ps1` script accepts an argument of the same name
+which it passes to `Start-LabConfiguration` if present.
+
+(See [Pending Reboot](../backmatter/concepts/lability/pending-reboot)
+for more information about pending reboot warnings.)
 
 ### Wait for the Hyper-V VMs to come up
 

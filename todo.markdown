@@ -23,6 +23,7 @@
 -   Remote Desktop web client on the gateway / webserver behind gateway
 -   How to create some kind of lab templating system for frequent disposable VMs for e.g. malware analysis
 -   Cookbook style organization, maybe for just a sub section of the book?
+-   Secrets with GPG + Powershell JSON support
 
 ## Reorganization idea - cookbook style
 

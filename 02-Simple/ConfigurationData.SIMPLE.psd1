@@ -5,7 +5,6 @@
             Role                        = 'CLIENT';
             InterfaceAlias              = 'Ethernet';
             AddressFamily               = 'IPv4';
-            Lability_SwitchName         = "Wifi-HyperV-VSwitch";
             Lability_Media              = 'WIN10_x64_Enterprise_EN_Eval';
             Lability_ProcessorCount     = 1;
             Lability_StartupMemory      = 2GB;

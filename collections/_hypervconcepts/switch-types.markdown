@@ -41,3 +41,6 @@ Hyper-V knows about 3 different types of switches:
 
 You can learn more about Hyper-V switches from
 [Hyper-V: what are the uses for different types of virtual networks?](https://blogs.technet.microsoft.com/jhoward/2008/06/17/hyper-v-what-are-the-uses-for-different-types-of-virtual-networks/))
+
+Hyper-V installs a NAT switch called `Default Switch`;
+see [Hyper-V default switch](default-switch) for more information.

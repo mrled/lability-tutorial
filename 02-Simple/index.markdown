@@ -3,32 +3,13 @@
 
 In this chapter, we define and deploy a very simple Lability configuration.
 
-Last tested: NEVER
+Last tested: 2018-06-22
 
 ## On this page
 {:.no_toc}
 
 * TOC
 {:toc}
-
-## Pre-steps
-
-Before deploying this lab,
-you must have an existing Hyper-V external switch.
-
-(See [Hyper-V switch types](../backmatter/concepts/hyperv/switch-types)
-for more information about Hyper-V's switch types.)
-
-Open the `Hyper-V Manager` application,
-click on `Virtual Switch Manager...` in the right pane,
-and click the `Create Virtual Switch` button.
-Assign a name for the new VSwitch (mine is `WiFi-HyperV-VSwitch`),
-attach it to an external network that has Internet access,
-and click OK.
-
-You will see my `WiFi-HyperV-VSwitch` switch name in the configuration data below.
-If you named your switch something else,
-you should change the line in the configuration data to match the name you chose.
 
 ## Defining the configuration data
 
@@ -75,8 +56,8 @@ In our example, we see just one child of the `AllNodes` key:
 A hashtable where `NodeName = 'CLIENT1'`,
 indicating configuration specific to a host called `CLIENT1`.
 
-You can see that we specify the VSwitch in this section,
-as well as other settings unique to our new VM like what Windows media to install,
+You can see that we define settings unique to our new VM,
+like what Windows media to install,
 how much RAM it has,
 and so forth.
 
@@ -103,20 +84,24 @@ such as the `PSDscAllowPlainTextPassword` key you can see in our example configu
 it allows you to pass plaintext creds to the DSC configuration without throwing an error.)
 
 Other keys are not special to DSC, but are special to Lability.
-For instance, the `Lability_SwitchName` key determines which Hyper-V switch(es) Lability will attach to its nodes.
-If a switch with that name already exists, Lability will use it;
-if not, Lability will create an internal Hyper-V switch.
+For instance, the `Lability_Media` key determines what OS install media to use when building the VM.
 For more information about all the keys that Lability interprets specially,
 see the `about_ConfigurationData` help topic.
-For more information about defining switches in Lability,
-especially if you wish to define a new external switch in your configuration data,
-see the `about_Networking` help topic.
 
 Finally, other keys such as `InterfaceAlias` or `AddressFamily` are not treated specially at all,
 and must be used in a DSC configuration block.
 You can add any number of these keys and assign them any value you like,
 but they are not used unless your DSC configuration references them explicitly.
 DSC configuration blocks are discussed next.
+
+### Networking and the (lack of the) `Lability_SwitchName` key
+
+You can assign a Hyper-V VSwitch to a VM with the `Lability_SwitchName` key.
+If that key is not present,
+Lability falls back to a switch named `Default Switch`.
+
+See [Hyper-V default switch](../backmatter/concepts/hyperv/default-switch)
+for more information.
 
 ## Writing a DSC configuration
 

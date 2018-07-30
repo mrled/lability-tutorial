@@ -67,7 +67,10 @@ for more information about different switch types.
 2.  Log in to one of the servers using the Hyper-V management console.
 
     -   Ping the other server by its IP address
-    -   Use `Enter-PSSession` to connect to the other server
+    -   Use `Enter-PSSession` to connect to the other server -
+        this requires understanding
+        [Powershell Remoting](../backmatter/concepts/powershell/remoting),
+        including setting `TrustedHosts` and ensuring the firewall allows access.
 
 3.  Run `Get-NetIpAddress` on your lab host and try to understand each network device that it returns.
 

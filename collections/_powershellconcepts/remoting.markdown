@@ -223,6 +223,44 @@ you can use the `$using:` prefix to reference the same values:
 I am connected to <destination VM>
 {% endhighlight %}
 
+## Remoting and Windows Firewall
+
+Windows Firewall will allow or deny remoting,
+depending on the category assigned to the network(s) a machine is connected to.
+
+Networks in Windows have "profiles" which are assigned to one of three "categories":
+either "Public", "Private", or "Domain".
+
+1.  A "Public" network is a potentially malicious network,
+    like a coffee shop network or a direct Internet connection.
+
+2.  A "Private" network is a network you trust,
+    like your home network.
+
+3.  A "Domain" network is a network controlled by an Active Directory domain that the machine is joined to.
+    Users cannot assign networks to this category;
+    Windows assigns networks to this category automatically if appropriate.
+
+By default, Windows Firewall prohibits remoting from "Public" networks,
+but allows it from "Private" and "Domain" networks.
+
+### Setting the network type from the Windows GUI
+
+The first time a machine connects to a given network,
+Windows will set the network to "Public" (aka untrusted),
+and slide over a dialog pane that says
+
+> Do you want your PC to be discoverable by other PCs and devices on this network?
+>
+> We recommend allowing this on your home and work networks, but not public ones.
+
+If you click "no", Windows will do nothing;
+if you click "yes", Windows will change the network profile category to "Private" and allow remoting.
+
+### Setting the network type from Powershell
+
+You can use the `Set-NetConnectionProfile` cmdlet to change the profile.
+
 ## References
 
 - [PowerShell Remoting and the "Double-Hop" Problem](https://blogs.msdn.microsoft.com/clustering/2009/06/25/powershell-remoting-and-the-double-hop-problem/)

@@ -39,6 +39,13 @@ but not for the initial release.
 -   How to create some kind of lab templating system for frequent disposable VMs for e.g. malware analysis
 -   Cookbook style organization, maybe for just a sub section of the book?
 -   Secrets with GPG + Powershell JSON support
+-   Windows 10 "Default Switch" problems:
+    I've seen problems where a VM has "No internet access" on the default switch,
+    especially after changing networks.
+    [This solution](https://t3chn1ck.wordpress.com/2018/06/19/no-internet-on-hyper-v-guest-using-default-switch/)
+    suggests restarting the ICS service (`Restart-Service -Name SharedAccess`).
+    In my experience it also works to just wait a while - but sometimes a long while.
+    I haven't been able to test that solution yet, but oh my god I need a better solution.
 
 ### Reorganization idea - cookbook style
 

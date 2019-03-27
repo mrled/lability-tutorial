@@ -6,7 +6,7 @@ Hello, GitHub 👨‍💻
 This is a tutorial for working with [Lability](https://github.com/VirtualEngine/Lability/).
 
 I recently found Lability and really came to like it.
-However, unfortunately its documentation is a bit sparse.
+However, I found it a bit hard to get started with.
 I am writing this tutorial to help people get started with this dope module for building Hyper-V test labs.
 I hope it's useful.
 ❤
